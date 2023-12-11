@@ -16,7 +16,7 @@ scene.add(collection);
 collection.position.z = -3;
 collection.scale.divideScalar(3);
 
-// light
+// lightdddd
 /// light from the sky
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
 hemisphereLight.color.setHSL(0.6, 1, 1);
