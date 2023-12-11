@@ -47,7 +47,7 @@ renderer.xr.enabled = true;
 document.body.appendChild(ARButton.createButton(renderer));
 document.body.appendChild(dom);
 
-// object loadingzhutfztfgv
+// object loading
 const raum = new THREE.Object3D();
 const loader = new GLTFLoader();
 

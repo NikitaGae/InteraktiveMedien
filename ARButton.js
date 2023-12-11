@@ -1,73 +1,39 @@
+
 var ARButton = {
-    createButton: function(gl, options) {
+    createButton: function (renderer, options) {
         if (options && options.referenceSpaceType) {
-            gl.xr.setReferenceSpaceType(options.referenceSpaceType);
+            renderer.xr.setReferenceSpaceType(options.referenceSpaceType);
         }
 
-        function EnterVR() {
-            button.innerHTML = 'Enter XR';
-            var currentSession = null;
-        
-            function onSessionStarted(session) {
-                session.addEventListener('end', onSessionEnded);
-                gl.xr.setSession(session);
-                button.textContent = 'Exit XR';
-                currentSession = session;
-            }
-
-            function onSessionEnded() {
-                currentSession.removeEventListener('end',
-                onSessionEnded);
-                button.textContent = 'Enter XR';
-                currentSession = null;
-            }
-
-            button.onclick = () => {
-                console.log('Button pressed');
-                if (currentSession === null) {
-                    let sessionInit = {
-                            optionalFeatures: ["local-floor", "bounded-floor", "dom-overlay"],
-                            domOverlay: { root: document.getElementById("overlay")}
-                        };
-                    navigator.xr.requestSession('immersive-ar', sessionInit).then(onSessionStarted);
-                }
-                else {
-                    currentSession.end();
-                }
-
-            }
-        
-        }
-        
-        function NotFound() {
-            button.textContent = 'immersive-ar not supported';
-            console.log('immersive-ar mode not found');
+        function onSessionStarted(session) {
+            session.addEventListener('end', onSessionEnded);
+            renderer.xr.setSession(session);
         }
 
-        if (navigator.xr) {
-            var button = document.createElement("button");
-            navigator.xr.isSessionSupported('immersive-ar').then(function(supported) {
-                if (supported) { 
-                    EnterVR() 
-                }
-                else { 
-                    NotFound();
-                }
-            });
-            button.setAttribute("id", "btn");
-            return button;
-        } else {
-            if (window.isSecureContext === false) {
-                console.log('WebXR needs HTTPS');
+        function onSessionEnded() {
+            button.textContent = 'Enter AR';
+        }
+
+        const button = document.createElement('button');
+        button.textContent = 'Enter AR';
+        button.onclick = function () {
+            if (renderer.xr.getSession() === null) {
+                navigator.xr
+                    .requestSession('immersive-ar', {
+                        optionalFeatures: ['local-floor', 'bounded-floor', 'dom-overlay'],
+                        domOverlay: { root: document.getElementById('overlay') },
+                    })
+                    .then(onSessionStarted)
+                    .catch((error) => {
+                        console.error('Failed to start AR session:', error);
+                    });
             } else {
-                console.log('WebXR not available');
+                renderer.xr.getSession().end();
             }
-            return;
-        }
-    }
-}
+        };
 
-export {ARButton};
+        return button;
+    },
+};
 
-
-
+export { ARButton };
