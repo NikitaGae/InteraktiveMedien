@@ -16,7 +16,7 @@ scene.add(collection);
 collection.position.z = -3;
 collection.scale.divideScalar(3);
 
-// lightdddd
+// light
 /// light from the sky
 const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
 hemisphereLight.color.setHSL(0.6, 1, 1);
@@ -57,7 +57,6 @@ controls = new OrbitControls(camera, dom);
 controls.target.set(0, 1.6, 0);
 controls.update();
 
-// loading in the 3D models, saving them into usable variables and adding them to the scene.
 loader.load('models/raum.glb', function (gltf) {
     // its always children[0] because the child gets removed from gltf.scene once you add it to the actual scene
     console.log('Model loaded:', gltf);
@@ -76,6 +75,8 @@ function animate() {
     collection.position.set(0, 0, 0);
 
     renderer.setAnimationLoop(function () {
+        // time management
+        /// scaling to seconds
         // rendering
         renderer.outputEncoding = THREE.sRGBEncoding;
         renderer.shadowMap.enabled = true;
