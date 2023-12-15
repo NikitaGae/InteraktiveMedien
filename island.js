@@ -26,6 +26,7 @@ scene.add(hemisphereLight)
 const hemiLightHelper = new THREE.HemisphereLightHelper(hemisphereLight, 1);
 hemiLightHelper.visible = false;
 scene.add(hemiLightHelper);
+//ffffffff
 
 /// light from the sun
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
