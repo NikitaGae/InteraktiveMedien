@@ -71,7 +71,7 @@ loader.load('models/raum.glb', function (gltf) {
 
 function animate() {
     // scaling after everything has loaded
-    collection.scale.set(0.2, 0.2, 0.2);
+    collection.scale.set(2, 2, 2);
     collection.position.set(0, 0, 0);
 
     renderer.setAnimationLoop(function () {
