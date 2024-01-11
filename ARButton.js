@@ -23,11 +23,13 @@ var ARButton = {
             }
 
             button.onclick = () => {
+                playSound('models/Sad_End.mp3')
                 console.log('Button pressed');
                 if (currentSession === null) {
                     let sessionInit = {
                             optionalFeatures: ["local-floor", "bounded-floor", "dom-overlay"],
                             domOverlay: { root: document.getElementById("overlay")}
+
                         };
                     navigator.xr.requestSession('immersive-ar', sessionInit).then(onSessionStarted);
                 }
@@ -37,6 +39,13 @@ var ARButton = {
 
             }
         
+        }
+
+
+        function playSound(audioName) {
+            let audio = new Audio(audioName);
+            audio.loop = true;
+            audio.play();
         }
         
         function NotFound() {
