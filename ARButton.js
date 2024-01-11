@@ -44,7 +44,7 @@ var ARButton = {
 
         function playSound(audioName) {
             let audio = new Audio(audioName);
-            audio.loop = true;
+            audio.loop = false;
             audio.play();
         }
         

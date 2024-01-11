@@ -293,7 +293,7 @@ loader.load('models/raum.glb', function (gltf) {
             }
         }
     }
-
+  }
 function animate() {
     // scaling after everything has loaded
     collection.scale.set(2, 2, 2);
