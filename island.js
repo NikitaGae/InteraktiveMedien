@@ -260,44 +260,48 @@ loader.load('models/raum.glb', function (gltf) {
 
   function render( timestamp, frame ) {
     // Checks if the ar mode is on, because the hittest doesn't work in vr. (We couldn't fix it, if we got it right it's because the hittest in vr works different)
-    if (xr_mode == "ar") {  
 
-    // Checks every frame if it found an intersection with realworld surfaces
-        if ( frame ) {
-            const referenceSpace = renderer.xr.getReferenceSpace();
-            const session = renderer.xr.getSession();
-
-            if ( hitTestSourceRequested === false ) {
-                session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {
-                session.requestHitTestSource( { space: referenceSpace } ).then( function ( source ) {
-                    hitTestSource = source;
-                } );
-                } );
-                session.addEventListener( 'end', function () {
-                hitTestSourceRequested = false;
-                hitTestSource = null;
-                } );
-                hitTestSourceRequested = true;
-            }
-
-            // If it found an intersection it makes the hitmarker visible and gets the position result of the found coordinates so we can place objects there
-            if ( hitTestSource ) {
-                const hitTestResults = frame.getHitTestResults( hitTestSource );
-                if ( hitTestResults.length ) {
-                const hit = hitTestResults[ 0 ];
-                reticle.visible = true;
-                reticle.matrix.fromArray( hit.getPose( referenceSpace ).transform.matrix );
-                } else {
-                reticle.visible = false;
-                }
-            }
-        }
-    }
   }
+
 function animate() {
     // scaling after everything has loaded
     collection.scale.set(2, 2, 2);
     collection.position.set(0, 0, 0);
+
+    if (xr_mode == "ar") {  
+
+        // Checks every frame if it found an intersection with realworld surfaces
+            if ( frame ) {
+                const referenceSpace = renderer.xr.getReferenceSpace();
+                const session = renderer.xr.getSession();
+    
+                if ( hitTestSourceRequested === false ) {
+                    session.requestReferenceSpace( 'viewer' ).then( function ( referenceSpace ) {
+                    session.requestHitTestSource( { space: referenceSpace } ).then( function ( source ) {
+                        hitTestSource = source;
+                    } );
+                    } );
+                    session.addEventListener( 'end', function () {
+                    hitTestSourceRequested = false;
+                    hitTestSource = null;
+                    } );
+                    hitTestSourceRequested = true;
+                }
+    
+                // If it found an intersection it makes the hitmarker visible and gets the position result of the found coordinates so we can place objects there
+                if ( hitTestSource ) {
+                    const hitTestResults = frame.getHitTestResults( hitTestSource );
+                    if ( hitTestResults.length ) {
+                    const hit = hitTestResults[ 0 ];
+                    reticle.visible = true;
+                    reticle.matrix.fromArray( hit.getPose( referenceSpace ).transform.matrix );
+                    } else {
+                    reticle.visible = false;
+                    }
+                }
+            }
+        }
+
 
     renderer.setAnimationLoop(function () {
         // time management
