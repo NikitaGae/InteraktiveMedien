@@ -405,6 +405,8 @@ async function init() {
 // Adding the static objects
 async function addObjects() { 
 
+    // Generate Portal with the given coordinates
+    generatePortal(0, 0, -0.8);
 
     // Random Planet or Star Spawner
     geometry = new THREE.Object3D();
