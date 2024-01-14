@@ -106,7 +106,7 @@ function animate() {
 animate(); */
 
 
-/* import * as THREE from 'three';
+import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { ARButton } from './ARButton.js';
@@ -115,6 +115,7 @@ import { ARButton } from './ARButton.js';
 const FOV = 75;
 const near_plane = 0.1;
 const far_plane = 1000;
+let xr_mode = "xr";
 
 // scene
 const scene = new THREE.Scene();
@@ -311,12 +312,12 @@ function animate() {
 }
 
 animate();
-renderer.render( scene, camera ); */
+renderer.render( scene, camera ); 
 
 
 // Three JS and AR Setup
 
-import * as THREE from 'three';
+/* import * as THREE from 'three';
 import { ARButton } from 'three/addons/webxr/ARButton.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
@@ -568,4 +569,4 @@ function render( timestamp, frame ) {
 
     // render scene and camera
     renderer.render( scene, camera );
-}
+} */
