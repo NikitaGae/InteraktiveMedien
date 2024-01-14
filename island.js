@@ -405,8 +405,6 @@ async function init() {
 // Adding the static objects
 async function addObjects() { 
 
-    // Generate Portal with the given coordinates
-    generatePortal(0, 0, -0.8);
 
     // Random Planet or Star Spawner
     geometry = new THREE.Object3D();
@@ -454,12 +452,6 @@ async function addObjects() {
     realMat.stencilFunc = THREE.AlwaysStencilFunc;
     realMat.stencilZPass = THREE.ReplaceStencilOp;
 
-
-    // Space material with activated stencil so it creates a stencil of this shape on another object (in this case in stencils the skybox so only the stencil is visible on this material, but not the rest)
-    // It gets often used for portal effects: 
-    // "Other rendering techniques, such as portal rendering, use the stencil buffer in other ways; for example, it can be used to find the area of the screen obscured by a portal and re-render those pixels correctly."
-    // see https://en.wikipedia.org/wiki/Stencil_buffer () and https://en.wikipedia.org/wiki/Portal_rendering
-    spaceMat = new THREE.MeshBasicMaterial({color: 0xffffff});
 
     spaceMat.depthWrite = false;
     spaceMat.stencilWrite = true;
