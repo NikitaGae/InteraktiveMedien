@@ -106,7 +106,7 @@ function animate() {
 animate(); */
 
 
-/* import * as THREE from 'three';
+import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { ARButton } from './ARButton.js';
@@ -208,7 +208,7 @@ async function addObjects() {
         scene.add( reticle );
 }
 
-loader.load('models/raum.glb', function (gltf) {
+/* loader.load('models/raum.glb', function (gltf) {
     // its always children[0] because the child gets removed from gltf.scene once you add it to the actual scene
 
     gltf.scene.traverse((child) => {
@@ -235,7 +235,7 @@ loader.load('models/raum.glb', function (gltf) {
     
 }, undefined, function (error) {
     console.error(error);
-});
+}); */
 
 onSelect()
 
@@ -316,11 +316,10 @@ function animate() {
 
 animate();
 renderer.render( scene, camera ); 
- */
 
 // Three JS and AR Setup
 
-import * as THREE from 'three';
+/* import * as THREE from 'three';
 import { ARButton } from 'three/addons/webxr/ARButton.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
@@ -563,4 +562,4 @@ function render( timestamp, frame ) {
 
     // render scene and camera
     renderer.render( scene, camera );
-}
+} */
