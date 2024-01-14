@@ -237,14 +237,17 @@ loader.load('models/raum.glb', function (gltf) {
     console.error(error);
 });
 
+onSelect()
 
-  function onSelect(event) {
+  function onSelect() {
     if (reticle.visible) {
       // The reticle should already be positioned at the latest hit point,
       // so we can just use its matrix to save an unnecessary call to
       // event.frame.getHitTestResults.
 
-
+      controller = renderer.xr.getController( 0 );
+      controller.addEventListener( 'select', onSelect );
+      scene.add( controller );
 
         // Creates the hitmarker object that is hidden in the beginning
         reticle = new THREE.Mesh(
@@ -300,7 +303,7 @@ function animate() {
     // scaling after everything has loaded
     collection.scale.set(2, 2, 2);
     collection.position.set(0, 0, 0);
-
+    render(scene, camera);
     renderer.setAnimationLoop(function () {
         // time management
         /// scaling to seconds
