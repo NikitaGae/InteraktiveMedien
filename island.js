@@ -106,7 +106,7 @@ function animate() {
 animate(); */
 
 
-import * as THREE from 'three';
+/* import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { ARButton } from './ARButton.js';
@@ -316,11 +316,11 @@ function animate() {
 
 animate();
 renderer.render( scene, camera ); 
-
+ */
 
 // Three JS and AR Setup
 
-/* import * as THREE from 'three';
+import * as THREE from 'three';
 import { ARButton } from 'three/addons/webxr/ARButton.js';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
@@ -572,4 +572,4 @@ function render( timestamp, frame ) {
 
     // render scene and camera
     renderer.render( scene, camera );
-} */
+}
