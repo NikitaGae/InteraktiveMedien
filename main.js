@@ -1,6 +1,7 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-import { ARButton } from './ARButton.js';
+//import { ARButton } from './ARButton.js';
+import { ARButton } from 'three/addons/webxr/ARButton.js';
 
 // camera configuration
 const FOV = 75;
@@ -8,6 +9,7 @@ const near_plane = 0.1;
 const far_plane = 1000;
 let hitTestSource = null;
 let hitTestSourceRequested = false;
+let xr_mode = "xr";
 
 // scene
 const scene = new THREE.Scene();
@@ -34,8 +36,11 @@ const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true, premul
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.xr.enabled = true;
-document.body.appendChild(renderer.domElement);
-document.body.appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
+//document.body.appendChild(renderer.domElement);
+//document.body.appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
+//document.body.appendChild(renderer.domElement);
+document.getElementById("buttonContainer").appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
+document.getElementById("ARButton").addEventListener("click", () => xr_mode = "ar");
 
 // object loading
 const raum = new THREE.Object3D();
@@ -112,6 +117,7 @@ async function addObjects() {
 
 
 function render(timestamp, frame) {
+    if(xr_mode == "ar") {
     if (frame) {
         const referenceSpace = renderer.xr.getReferenceSpace();
         const session = renderer.xr.getSession();
@@ -141,6 +147,7 @@ function render(timestamp, frame) {
                 }
         }
         renderer.render( scene, camera );
+    }
 }
 animate();
 function animate() {
