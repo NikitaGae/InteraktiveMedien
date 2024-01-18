@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
-//import { ARButton } from './ARButton.js';
 import { ARButton } from 'three/addons/webxr/ARButton.js';
 
 // camera configuration
@@ -11,7 +10,6 @@ let hitTestSource = null;
 let hitTestSourceRequested = false;
 let xr_mode = "xr";
 
-// scene
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(FOV, window.innerWidth / window.innerHeight, near_plane, far_plane);
 const collection = new THREE.Object3D();
@@ -20,25 +18,19 @@ collection.scale.set(2, 2, 2);
 collection.position.set(0, 0, -3);
 collection.scale.divideScalar(3);
 
-/// light from the sun
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-directionalLight.color.setHSL(0.9, 1, 0.9);
-directionalLight.position.set(-2.5, 10, -2.5);
-directionalLight.castShadow = true;
-directionalLight.shadow.mapSize.width = directionalLight.shadow.mapSize.height = 2048
-scene.add(directionalLight);
-const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 1);
-directionalLightHelper.visible = false;
-scene.add(directionalLightHelper);
+const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0xffffff, 0.6);
+hemisphereLight.color.setHSL(0.6, 1, 1);
+hemisphereLight.groundColor.setHSL(0.095, 1, 0.75);
+hemisphereLight.position.set(0, 10, 0);
+scene.add(hemisphereLight)
+const hemiLightHelper = new THREE.HemisphereLightHelper(hemisphereLight, 1);
+hemiLightHelper.visible = false;
+scene.add(hemiLightHelper);
 
-// renderer
 const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true, premultipliedAlpha: false} );
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.xr.enabled = true;
-//document.body.appendChild(renderer.domElement);
-//document.body.appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
-//document.body.appendChild(renderer.domElement);
 document.getElementById("buttonContainer").appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
 document.getElementById("ARButton").addEventListener("click", () => xr_mode = "ar");
 
@@ -48,30 +40,25 @@ const loader = new GLTFLoader();
 let reticle, geometry, controller;
 
 loader.load('models/raum.glb', function (gltf) {
-    // its always children[0] because the child gets removed from gltf.scene once you add it to the actual scene
-
     gltf.scene.traverse((child) => {
         if (child.isMesh) {
             // Load the texture using TextureLoader
             const textureLoader = new THREE.TextureLoader();
             const texture = textureLoader.load('models/DefaultMaterial_basecolor.png');
-
             // Apply the texture to the mesh's material
             child.material = new THREE.MeshStandardMaterial({
                 map: texture,
-                metalness: 0.0, // Adjust these properties based on your model
+                metalness: 0.0,
                 roughness: 0.0,
             });
         }
     });
 
-
     console.log('Model loaded:', gltf);
-    // raum.add(gltf.scene);
+    raum.add(gltf.scene);
     raum.name = "raum";
     collection.add(raum);
     raum.scale.set(10, 10, 10);
-    
 }, undefined, function (error) {
     console.error(error);
 });
@@ -80,11 +67,7 @@ loader.load('models/raum.glb', function (gltf) {
 await addObjects(); 
 
 async function addObjects() { 
-
-    
         function onSelect() {
-
-            // Places a random model with random properties if the hitmarker is visible (means it found an intersection in the real world)
             if ( reticle.visible ) {
                 geometry = new THREE.Object3D();
                     loader.load('models/kugel.glb', function (gltf) {
@@ -113,8 +96,6 @@ async function addObjects() {
           reticle.visible = false;
           scene.add( reticle );
 }
-
-
 
 function render(timestamp, frame) {
     if(xr_mode == "ar") {
@@ -146,9 +127,9 @@ function render(timestamp, frame) {
                     }
                 }
         }
-        renderer.render( scene, camera );
     }
 }
+
 animate();
 function animate() {
     renderer.render(scene, camera);
