@@ -77,7 +77,6 @@ async function addObjects() {
                         reticle.matrix.decompose( geometry.position, geometry.quaternion, geometry.scale );
 
                         scene.add(geometry);
-                        geometry.position.set(0.1, 0.1, 20);
                 }, undefined, function (error) {
                     console.error(error);
                 })
