@@ -39,7 +39,7 @@ const raum = new THREE.Object3D();
 const loader = new GLTFLoader();
 let reticle, geometry, controller;
 
-loader.load('models/raum.glb', function (gltf) {
+loader.load('models/raum2.glb', function (gltf) {
     gltf.scene.traverse((child) => {
         if (child.isMesh) {
             // Load the texture using TextureLoader
@@ -58,7 +58,8 @@ loader.load('models/raum.glb', function (gltf) {
     raum.add(gltf.scene);
     raum.name = "raum";
     collection.add(raum);
-    raum.scale.set(10, 10, 10);
+    raum.scale.set(20, 20, 20);
+    raum.position.set(-1, -1, 3);
 }, undefined, function (error) {
     console.error(error);
 });
@@ -76,6 +77,7 @@ async function addObjects() {
                         reticle.matrix.decompose( geometry.position, geometry.quaternion, geometry.scale );
 
                         scene.add(geometry);
+                        geometry.position.set(0.1, 0.1, 20);
                 }, undefined, function (error) {
                     console.error(error);
                 })
