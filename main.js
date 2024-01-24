@@ -58,8 +58,7 @@ loader.load('models/raum2.glb', function (gltf) {
     raum.add(gltf.scene);
     raum.name = "raum";
     collection.add(raum);
-    raum.scale.set(20, 20, 20);
-    raum.position.set(-1, -1, 3);
+    raum.scale.set(10, 10, 10);
 }, undefined, function (error) {
     console.error(error);
 });
