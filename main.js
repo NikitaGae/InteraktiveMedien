@@ -31,8 +31,21 @@ const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true, premul
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.xr.enabled = true;
-document.getElementById("buttonContainer").appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
-document.getElementById("ARButton").addEventListener("click", () => xr_mode = "ar");
+//document.getElementById("buttonContainer").appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
+//document.getElementById("ARButton").addEventListener("click", () => xr_mode = "ar");
+
+const arButton = ARButton.createButton(renderer, { requiredFeatures: ['hit-test'] });
+document.getElementById("buttonContainer").appendChild(arButton);
+arButton.addEventListener("click", () => {
+    xr_mode = "ar";
+    playDelayedSoundsOnButtonClick();
+});
+
+function playDelayedSoundsOnButtonClick() {
+    playDelayedSound('models/1.mp3', 5000, 0);
+    playDelayedSound('models/2.mp3', 23000, 0);
+    playDelayedSound('models/3.mp3', 52000, 0);
+}
 
 // object loading
 const raum = new THREE.Object3D();
@@ -95,6 +108,18 @@ async function addObjects() {
           reticle.matrixAutoUpdate = false;
           reticle.visible = false;
           scene.add( reticle );
+}
+
+function playSound(audioName) {
+    let audio = new Audio(audioName);
+    audio.loop = false;
+    audio.play();
+}
+
+function playDelayedSound(soundPath, delay, iteration) {
+    setTimeout(() => {
+        playSound(soundPath);
+    }, delay);
 }
 
 function render(timestamp, frame) {

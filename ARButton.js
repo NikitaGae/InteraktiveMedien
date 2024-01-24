@@ -24,19 +24,6 @@ var ARButton = {
 
             button.onclick = () => {
 
-                /* function playDelayedSound(soundPath, delay, iteration) {
-                    setTimeout(() => {
-                        console.log("Iteration " + (iteration + 1) + " abgeschlossen.");
-                        playSound(soundPath);
-                    }, delay);
-                }
-                
-                playDelayedSound('models/1.mp3', 5000, 0);
-
-                playDelayedSound('models/2.mp3', 23000, 0);
-
-                playDelayedSound('models/3.mp3', 52000, 0);
- */
                 console.log('Button pressed');
                 if (currentSession === null) {
                     let sessionInit = {
@@ -52,13 +39,6 @@ var ARButton = {
 
             }
         
-        }
-
-
-        function playSound(audioName) {
-            let audio = new Audio(audioName);
-            audio.loop = false;
-            audio.play();
         }
         
         function NotFound() {
