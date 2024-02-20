@@ -41,7 +41,7 @@ arButton.addEventListener("click", () => {
 
 function playDelayedSoundsOnButtonClick() {
     playDelayedSound('models/1.mp3', 5000, 0);
-    playDelayedSound('models/2.mp3', 24000, 0);
+    playDelayedSound('models/2.mp3', 26000, 0);
     playDelayedSound('models/3.mp3', 48000, 0);
 }
 
