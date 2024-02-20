@@ -31,8 +31,6 @@ const renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true, premul
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.xr.enabled = true;
-//document.getElementById("buttonContainer").appendChild( ARButton.createButton( renderer, { requiredFeatures: [ 'hit-test' ] } ) );
-//document.getElementById("ARButton").addEventListener("click", () => xr_mode = "ar");
 
 const arButton = ARButton.createButton(renderer, { requiredFeatures: ['hit-test'] });
 document.getElementById("buttonContainer").appendChild(arButton);
@@ -43,8 +41,8 @@ arButton.addEventListener("click", () => {
 
 function playDelayedSoundsOnButtonClick() {
     playDelayedSound('models/1.mp3', 5000, 0);
-    playDelayedSound('models/2.mp3', 23000, 0);
-    playDelayedSound('models/3.mp3', 52000, 0);
+    playDelayedSound('models/2.mp3', 24000, 0);
+    playDelayedSound('models/3.mp3', 48000, 0);
 }
 
 // object loading
